@@ -1,0 +1,6 @@
+  docker-compose run web python manage.py createsuperuser
+  docker rmi -f fce289e99eb9
+  docker images
+  docker ps
+  docker image prune
+  docker-compose up --build

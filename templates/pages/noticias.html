@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% block title %}SRIA - Noticias{% endblock title %}
+{% block section#1 %}{% endblock section#1 %}
+{% block section#2 %}{% endblock section#2 %}
+{% block h2-style %}color: black{% endblock h2-style %}
+{% block news-class %}about_us{% endblock news-class %}
+{% block style-news %}padding: 40px{% endblock style-news %}
+{% block section#3 %}
+{% if is_paginated %}
+<nav aria-label="Page navigation conatiner"></nav>
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo;</a></li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+    {% if i <= page_obj.number|add:5 and i >= page_obj.number|add:-5 %}
+    {% if page_obj.number == i %}
+    <li class="active"><a class="page-link">{{ i }}</a></li>
+    {% else %}
+    <li><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a></li>
+    {% endif %}
+</ul>
+</nav>
+<br><br>
+{% endif %}
+{% endblock section#3 %}

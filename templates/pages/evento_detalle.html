@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% if evento %}
+{% block title %}SRIA - {{ evento.titulo }} {% endblock title %}
+{% block section#1 %}{% endblock section#1 %}
+{% block s2-class %}about_us padding_top{% endblock s2-class %}
+{% block about %}
+
+<section>
+    <h1 style="text-align: center; font-size: 48px;"><strong>{{ evento.titulo }}</strong></h1>
+    <br/>
+    {% if evento.imagen %}
+    <img src="{{ evento.imagen.url }}" class="center">
+    {% else %}
+    <img src="{% static 'img/no-img.png' %}" class="center">
+    {% endif %}
+    <div class="container">
+        <br/>
+        <section>
+                <div class="posted-date"><label><strong>Fecha Inicio:</strong> </label>
+                    {{ evento.fecha_inicio }}
+                </div>
+                <div class="posted-date"><label><strong>Fecha Fin:</strong> </label>
+                    {{ evento.fecha_fin }}
+                </div><br />
+            {{ evento.contenido | safe }}
+        </section>
+    </div>
+</section>
+
+{% endblock about %}
+{% block div-news %}{% endblock div-news %}
+{% endif %}

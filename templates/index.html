@@ -1,0 +1,271 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}SRIA - Sociedad de Radiología e Imagenología del Azuay{% endblock title %}</title>
+
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- themify CSS -->
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <!-- magnific popup CSS -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <!-- nice select CSS -->
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <!-- style CSS -->
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<body>
+    {% block body %}
+    <!--::header part start::-->
+    {% include 'nav_bar.html' %}
+    <!-- Header part end-->
+
+    <!-- banner part start-->
+    {% block section#1 %}
+    <section class="banner_part">
+        {% block banner %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-xl-6">
+                    <div class="banner_text">
+                        <div class="banner_text_iner">
+                            <h1 style="color: #3256bd; font-size: 50px;">Sociedad de Radiología e Imagenología del Azuay
+                            </h1>
+                            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit sed do eiusmod tempor incididunt ut labore et dolore
+                                magna aliqua. Quis ipsum suspendisse ultrices gravida.Risus cmodo viverra
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="banner_img" style="padding-top:35%;">
+                        <img src="{% static 'img/banner_img.png' %}" alt="rights">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock banner %}
+    </section>
+    {% endblock section#1 %}
+    <!-- banner part start-->
+
+    <!-- about us part start-->
+    {% block section#2 %}
+    <section class="{% block s2-class %}about_us{% endblock s2-class %}">
+        {% block about %}
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-6 col-lg-6">
+                    <div class="about_us_img">
+                        <img src="{% static 'img/about.png' %}" height="480" width="480">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div class="about_us_text">
+                        <h2 style="color: #3256bd; font-size: 54px;">Bienvenidos</h2>
+                        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
+                            do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                            Quis ipsum suspendisse ultrices gravida. Risus cmodo viverra
+                            maecenas accumsan lacus vel
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
+                            do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                            Quis ipsum suspendisse ultrices gravida. Risus cmodo viverra
+                            maecenas accumsan lacus vel
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
+                            do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                            Quis ipsum suspendisse ultrices gravida. Risus cmodo viverra
+                            maecenas accumsan lacus vel
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit sed
+                            do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                            Quis ipsum suspendisse ultrices gravida. Risus cmodo viverra
+                            maecenas accumsan lacus vel
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock about %}
+    </section>
+    {% endblock section#2 %}
+    <!-- about us part end-->
+
+    <!--::regervation_part start::-->
+    {% block div-news %}
+    <section class="{% block news-class %}padding_top{% endblock news-class %}"
+        style="{% block style-news %}{% endblock style-news %}">
+        <div class="the-news">
+            {% block news %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        {% if noticias %}
+                        <h2 style="{% block h2-style %}color: #3256bd{% endblock h2-style %}">{% block h2 %}Ultimas
+                            Noticias{% endblock h2 %}</h2>
+                        <div class="row">
+                            {% for noticia in noticias %}
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="the-news-wrap">
+                                    <figure class="post-thumbnail">
+                                        <a href="{% url 'inicio:noticia' noticia.id %}">
+                                            {% if noticia.imagen %}
+                                            <img src="{{ noticia.imagen.url }}" height="270" width="70" alt="">
+                                            {% else %}
+                                            <img src="{% static 'img/no-img.png' %}" height="270" width="70" alt="">
+                                            {% endif %}
+                                        </a>
+                                    </figure>
+
+                                    <header class="entry-header">
+                                        <a href="{% url 'inicio:noticia' noticia.id %}">
+                                            <h3>{{ noticia.titulo }}</h3>
+                                        </a>
+
+                                        <div class="post-metas d-flex flex-wrap align-items-center">
+                                            <div class="posted-date"><label>Fecha: </label>
+                                                {{ noticia.fecha_publicacion }}
+                                            </div>
+
+                                            <div class="posted-by"><label>Autor: </label>
+                                                {{ noticia.autor }}
+                                            </div>
+                                        </div>
+                                    </header>
+
+                                    <div class="entry-content">
+                                        <p class="text-justify">{{ noticia.resumen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <h2>No hay Noticias para mostrar</h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endblock news %}
+        </div>
+    </section>
+    {% endblock div-news %}
+
+    <!--::regervation_part end::-->
+    {% block section#3 %}
+    <section class="padding_top"></section>
+    {% endblock section#3 %}
+
+    <!-- footer part start-->
+    <footer class="site-footer" style="background: #3256bd">
+        {% block footer %}
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="foot-about">
+                            <h2> <a class="navbar-brand" href="{% url 'inicio:inicio' %}"> <img
+                                        src="{% static 'img/icono.png' %}" width="64" height="64" alt="logo">
+                                </a></h2>
+
+                            <p>SRIA<br>Sociedad de Radiología e Imagenología del Azuay</p>
+
+                            <p class="copyright">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                                template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div><!-- .foot-about -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                        <div class="foot-contact">
+                            <h2 style="color: aliceblue">Contacto</h2>
+
+                            <ul class="p-0 m-0">
+                                <li style="color: aliceblue"><span style="color: grey">Dirección: </span> José Carrasco
+                                    Arteaga entre Popayán y Pacto Andino, Camino A Rayoloma, Cuenca</li><br>
+                                <li style="color: aliceblue"><span style="color: grey">Telefono: </span> (07) 286-1500
+                                </li><br>
+                                <li style="color: aliceblue"><span style="color: grey">Email: </span> yourmail@gmail.com
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                        <div class="foot-links">
+                            <h2 style="color: aliceblue">Enlaces de interés</h2>
+
+                            <ul class="p-0 m-0">
+                                <li><a href="{% url 'inicio:inicio' %}">Inicio</a></li>
+                                <li><a href="{% url 'inicio:noticias' %}">Noticias</a></li>
+                                <li><a href="{% url 'inicio:miembros' %}">Miembros</a></li>
+                                <li><a href="https://github.com/fmontalvoo">Desarrollador</a></li>
+                            </ul>
+                        </div><!-- .foot-links -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-widgets -->
+
+        <div class="copyright_part">
+            <div class="container">
+                <div class="row align-items-center">
+                    <p class="footer-text m-0 col-lg-8 col-md-12">
+                    </p>
+                    <div class="col-lg-4 col-md-6 text-center text-lg-right footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"> <i class="fa fa-twitter"></i> </a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <!-- <a href="#"><i class="fa fa-skype"></i></a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock footer %}
+    </footer><!-- .site-footer -->
+
+    <!-- footer part end-->
+    {% block scripts %}
+    <!-- jquery plugins here-->
+    <script src="{% static 'js/jquery-1.12.1.min.js' %}"></script>
+    <!-- popper js -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- owl carousel js -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <!-- contact js -->
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <!-- custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    {% endblock scripts %}
+    {% endblock body %}
+</body>
+
+</html>

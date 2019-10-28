@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% if noticia %}
+{% block title %}SRIA - {{ noticia.titulo }} {% endblock title %}
+{% block section#1 %}{% endblock section#1 %}
+{% block s2-class %}about_us padding_top{% endblock s2-class %}
+{% block about %}
+
+<section>
+    <h1 style="text-align: center; font-size: 48px;"><strong>{{ noticia.titulo }}</strong></h1>
+    <br/>
+    {% if noticia.imagen %}
+    <img src="{{ noticia.imagen.url }}" class="center">
+    {% else %}
+    <img src="{% static 'img/no-img.png' %}" class="center">
+    {% endif %}
+    <div class="container">
+        <br/>
+        <section>
+                <div class="posted-date"><label><strong>Fecha:</strong> </label>
+                    {{ noticia.fecha_publicacion }}
+                </div>
+                <div class="posted-by"> <label><strong> Autor:</strong> </label>
+                    {{ noticia.autor }}
+            </div><br />
+            {{ noticia.contenido | safe }}
+        </section>
+    </div>
+</section>
+
+{% endblock about %}
+{% block div-news %}{% endblock div-news %}
+{% endif %}

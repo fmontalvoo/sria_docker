@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block title %}SRIA - Miembros {% endblock title %}
+{% block section#1 %}{% endblock section#1 %}
+{% block s2-class %}about_us padding_top{% endblock s2-class %}
+{% block about %}
+<!--::doctor_part start::-->
+<section class="doctor_part single_page_doctor_part">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8">
+                <div class="section_tittle text-center">
+                    <h2>Miembros</h2>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% if miembros %}
+            {% for miembro in miembros %}
+            <div class="col-sm-6 col-lg-3">
+                <div class="single_blog_item">
+                    <div class="single_blog_img">
+                        {% if miembro.foto %}
+                        <img src="{{ miembro.foto.url }}" height="300" width="250" alt="doctor">
+                        {% else %}
+                        <img src="{% static 'img/profile.png' %}" height="300" width="300">
+                        {% endif %}
+                    </div>
+                    <div class="single_text">
+                        <div class="single_blog_text">
+                            <h3>{{ miembro }}</h3>
+                            <p>{{ miembro.titulo }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h1>No existen registros</h1>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!--::doctor_part end::-->
+
+{% endblock about %}
+{% block div-news %}{% endblock div-news %}
+{% block section#3 %}
+{% if is_paginated %}
+<nav aria-label="Page navigation conatiner"></nav>
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo;</a></li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+    {% if i <= page_obj.number|add:5 and i >= page_obj.number|add:-5 %}
+    {% if page_obj.number == i %}
+    <li class="active"><a class="page-link">{{ i }}</a></li>
+    {% else %}
+    <li><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a></li>
+    {% endif %}
+</ul>
+</nav>
+<br><br>
+{% endif %}
+{% endblock section#3 %}

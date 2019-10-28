@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block title %}SRIA - Actividades Cientificas{% endblock title %}
+{% block section#1 %}{% endblock section#1 %}
+{% block section#2 %}{% endblock section#2 %}
+{% block div-news %}
+<section class="about_us" style="padding: 40px">
+    <div class="the-news">
+        {% block news %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% if eventos %}
+                    <h2 style="color: black">{% block h2 %}Actividades Cientificas{% endblock h2 %}</h2>
+                    <div class="row">
+                        {% for evento in eventos %}
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="the-news-wrap">
+                                <figure class="post-thumbnail">
+                                    <a href="{% url 'inicio:actividad' evento.id %}">
+                                        {% if evento.imagen %}
+                                        <img src="{{ evento.imagen.url }}" height="270" width="70" alt="">
+                                        {% else %}
+                                        <img src="{% static 'img/no-img.png' %}" height="270" width="70" alt="">
+                                        {% endif %}
+                                    </a>
+                                </figure>
+
+                                <header class="entry-header">
+                                    <a href="{% url 'inicio:actividad' evento.id %}">
+                                        <h3>{{ evento.titulo }}</h3>
+                                    </a>
+
+                                    <div class="post-metas d-flex flex-wrap align-items-center">
+                                        <div class="posted-date"><label>Fecha: </label>
+                                            {{ evento.fecha_inicio }}
+                                        </div>
+                                    </div>
+                                </header>
+
+                                <div class="entry-content">
+                                    <p class="text-justify">{{ evento.resumen }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <h2>No hay Actividades para mostrar</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endblock news %}
+    </div>
+</section>
+{% endblock div-news %}
+{% block section#3 %}
+{% if is_paginated %}
+<nav aria-label="Page navigation conatiner"></nav>
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo;</a></li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+    {% if i <= page_obj.number|add:5 and i >= page_obj.number|add:-5 %}
+    {% if page_obj.number == i %}
+    <li class="active"><a class="page-link">{{ i }}</a></li>
+    {% else %}
+    <li><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a></li>
+    {% endif %}
+</ul>
+</nav>
+<br><br>
+{% endif %}
+{% endblock section#3 %}
